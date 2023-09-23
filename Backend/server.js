@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv")
 const mongoose = require("mongoose")
+const path=require('path')
 
 const userRoutes = require('./routes/userRoutes');
 const chatRoutes = require('./routes/chatRoutes');
@@ -12,6 +13,10 @@ dotenv.config()
 const app = express()
 
 app.use(express.json())
+const cors = require('cors');
+app.use(cors({
+    origin: `*`
+}));
 
 
 const connect=async()=>{
@@ -50,7 +55,7 @@ const server = app.listen(PORT, ()=>{
 const io= require('socket.io')(server,{
     pingTimeout:6000,
     cors : {
-        origin : "http://localhost:3000"
+        origin : "*"
     },
 });
 
